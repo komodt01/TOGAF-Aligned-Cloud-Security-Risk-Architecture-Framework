@@ -1,0 +1,29 @@
+# What is TOGAF (Plain-Language, Certification-Safe)
+
+**TOGAF (The Open Group Architecture Framework)** is a widely used **enterprise architecture** framework. It provides:
+- A **common language** for business and technology stakeholders,
+- The **Architecture Development Method (ADM)** lifecycle (A–H),
+- **Architecture domains** (Business, Application, Data, Technology),
+- Guidance for **governance** and **continuous improvement**.
+
+> In this project, TOGAF is used **as a structuring model** to organize security architecture decisions. **No certification or compliance claim is made.**
+
+## TOGAF ADM Phases (A–H)
+| Phase | Purpose (as used here) |
+|------|-------------------------|
+| **A – Vision** | Define scope, drivers, risk appetite, and value |
+| **B – Business Architecture** | Capabilities, roles, accountability, SLAs |
+| **C – Information Systems** | Application & data relationships, identity boundaries |
+| **D – Technology** | Platform controls: IAM, logging, scanning, encryption, network |
+| **E – Opportunities & Solutions** | Options to improve coverage and efficiency |
+| **F – Migration Planning** | Sequencing, dependencies, milestones |
+| **G – Implementation Governance** | Conformance checks, policy-as-code, assurance |
+| **H – Change Management** | Feedback from incidents/audits → architecture updates |
+
+## Architecture Domains (Applied)
+- **Business Architecture:** risk, compliance, outcomes
+- **Application Architecture:** services, interfaces, trust relationships
+- **Data Architecture:** flows, classification, observability
+- **Technology Architecture:** platform controls and enablement
+
+**Why use TOGAF here?** It enforces **traceability** from business context to technical decisions and ensures an **iterative lifecycle** instead of a one-time design.
