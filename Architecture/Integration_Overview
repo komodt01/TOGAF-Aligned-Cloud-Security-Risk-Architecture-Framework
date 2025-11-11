@@ -1,0 +1,20 @@
+# Integration Overview – How TOGAF, NIST/ISO/CIS, MITRE, and CVSS Work Together
+
+This project shows how to connect **business risk → architecture decisions → control selection → operational assurance** using a TOGAF-aligned structure.
+
+## 1) TOGAF = Structure and Lifecycle
+- Uses the **ADM (A–H)** to move from vision → definition → governance → continuous improvement.
+- Encourages layered viewpoints (Business, Application, Data, Technology) so decisions are traceable across domains.
+
+## 2) Security Frameworks = Control Baselines
+- **NIST CSF** frames security functions (Identify, Protect, Detect, Respond, Recover).
+- **ISO 27001** anchors policy, governance, and management controls (Annex A).
+- **CIS Controls** define concrete technical safeguards to harden platforms.
+
+## 3) MITRE ATT&CK & CAPEC = Adversary Context
+- Map relevant **ATT&CK techniques** (e.g., T1078, T1562.001) and **CAPEC patterns** (e.g., CAPEC-94 brute force) to ensure controls mitigate real attacker behaviors.
+
+## 4) CVSS v3.1 = Risk Quantification
+- Assign severity and priority to vulnerabilities to enable **risk-based remediation** tied to SLAs.
+
+## 5) Closed-Loop Model
