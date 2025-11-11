@@ -1,0 +1,30 @@
+# Technologies & Security Controls
+
+## Identity & Access Management
+- **Principles:** least privilege, scoped trust, short-lived credentials.
+- **Practices:** role catalogs, permission baselines, approval workflows for privilege changes.
+
+## Encryption & Key Management
+- **At Rest:** managed KMS/Key Vault; CMKs for sensitive datasets.
+- **In Transit:** TLS enforced; strong cipher policies; cert lifecycle tracked.
+
+## Logging, Monitoring, and Detection
+- **Collection:** CloudWatch, Log Analytics, SIEM aggregation.
+- **Detection:** Rules mapped to **MITRE ATT&CK**; alert severity ties to risk thresholds.
+- **Assurance:** Evidence retention, dashboards for KPIs.
+
+## Vulnerability & Configuration Management
+- **Scanning:** Inspector/Trivy/OpenVAS; IaC static checks; dependency/SBOM scans.
+- **Prioritization:** **CVSS v3.1** with business context; SLAs per severity.
+- **Remediation:** Runbooks; auto-fix for safe classes (e.g., public S3, weak S3 policies).
+
+## Policy-as-Code & Governance
+- **Enforcement:** AWS Config/Azure Policy; deny-by-default for logging & IAM break-glass.
+- **Validation:** CI checks for Terraform/IaC; pull-request gates.
+- **Governance:** Exceptions documented; periodic reviews; evidence for audits.
+
+## Networking & Segmentation
+- Private endpoints; ingress/egress controls; service-to-service authentication.
+- Explicit zero-trust assumptions for east-west traffic.
+
+> These components implement the decisions captured in the TOGAF-aligned documentation and are measured against the mappings in `governance/compliance_mapping.md`.
