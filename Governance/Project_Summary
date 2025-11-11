@@ -1,0 +1,47 @@
+# Project Summary – TOGAF-Aligned Cloud Security Risk & Architecture Framework
+
+## Phase A – Architecture Vision
+**Objective:** Align cloud security with business risk tolerance and regulatory requirements using a repeatable architecture lifecycle.  
+**Scope:** Multi-cloud (AWS, Azure, GCP); focus on identity boundaries, observability, vulnerability management, and governance.  
+**Outcomes:** Risk-based prioritization, measurable assurance, continuous improvement.
+
+## Phase B – Business Architecture
+- **Drivers:** Regulatory obligations, availability/continuity goals, customer trust.
+- **Risk Appetite:** Prioritize reduction of material risk; define SLAs for remediation.
+- **Governance:** Assign accountability (security, platform, product) and escalation paths.
+
+## Phase C – Information Systems Architecture
+- **Identity Boundaries:** Define principals, roles, trust policies; minimize blast radius.
+- **Service Interactions:** Catalog APIs, data producers/consumers, and call paths.
+- **Observability Design:** Standardize logging, metrics, traces; centralize analysis.
+
+## Phase D – Technology Architecture
+- **IAM & Secrets:** Least privilege, scoped trust, rotation, brokered access.
+- **Network & Encryption:** Segmentation, private endpoints, TLS in transit, KMS at rest.
+- **Monitoring & Detection:** CloudWatch/Log Analytics + SIEM, rules mapped to ATT&CK.
+- **Vulnerability Management:** Inspector/Trivy/OpenVAS → CVSS scoring → ticketing.
+
+## Phase E – Opportunities & Solutions
+- Policy-as-code for conformity checks and drift detection.
+- Auto-remediation for high-confidence misconfigurations.
+- SBOM and dependency checks integrated into pipelines.
+- Cost/security telemetry surfaced as KPIs for leadership.
+
+## Phase F – Migration Planning
+1. Baseline identity, logging, and scanning enablement  
+2. Control mapping to NIST/ISO/CIS and ATT&CK  
+3. CVSS thresholds, SLAs, and runbooks  
+4. Policy-as-code rollout and CI checks  
+5. KPI reporting and governance cadence
+
+## Phase G – Implementation Governance
+- **Controls:** Measured against NIST/ISO/CIS requirements.  
+- **Enforcement:** AWS Config/Azure Policy; exceptions tracked.  
+- **Assurance:** Evidence retained; reviews tied to risk registers.
+
+## Phase H – Architecture Change Management
+- Feed incident findings, audits, and intel into backlog.
+- Periodic review of ATT&CK coverage and detection gaps.
+- Revisit risk appetite and SLAs as business context changes.
+
+> **Note:** TOGAF is used for structure; no certification is implied.
