@@ -5,12 +5,6 @@
 > lifecycle and architecture domains to ensure consistency, justification, and governance
 > of security decisions across AWS, Azure, and GCP.
 
-# TOGAF-Aligned Cloud Security Risk & Architecture Framework
-
-This project demonstrates how cloud security capabilities can be structured using the **TOGAF Architecture Development Method (ADM)** to align **business drivers, risk tolerance, threat intelligence, and platform security controls**.
-
-The intent is not to replicate TOGAF certification artifacts, but to apply TOGAF’s **architecture lifecycle and domain structure** to provide clarity, traceability, and governance to cloud security decisions.
-
 ---
 
 ## Architecture Intent
