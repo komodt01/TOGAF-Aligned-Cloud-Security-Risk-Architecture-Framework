@@ -1,0 +1,27 @@
+# Threat Model – MITRE ATT&CK and CAPEC Mapping
+
+This document highlights representative threats and aligns them to detection and mitigation paths.
+
+## Representative Threats
+
+| Threat Scenario | MITRE ATT&CK / CAPEC | Why It Matters | Mitigation / Detection |
+|-----------------|-----------------------|----------------|------------------------|
+| **Credential Access (API keys, tokens)** | T1555 | Cloud credentials enable lateral movement and data access | Secrets Manager/Key Vault; no long-lived keys; rotate; detect anomalous use |
+| **IAM Persistence** | T1098 | Adversary creates/changes roles to persist | Guardrails on CreateUser/Role; CloudTrail alerts; approval workflow |
+| **Defense Evasion (disable logging)** | T1562.001 | Turning off logs removes visibility | Deny policies on log resources; config rules; alarms on logging drift |
+| **Brute Force / Password Spraying** | CAPEC-94 / ATT&CK Credential Access | Common initial access vector | MFA; rate-limit; WAF rules; login anomaly detections |
+| **Path Traversal / Injection on public interface** | CAPEC-126 | Data exposure or RCE | Input validation; WAF signatures; SBOM and dependency updates |
+
+## Detection Strategy (Mapped to ATT&CK)
+- **T1078 Valid Accounts:** baseline usage per role; detect unusual geos/IPs/volumes.
+- **T1110 Brute Force:** auth failure spikes; device fingerprints; throttling alerts.
+- **T1562.001 Disable Security Tools:** config change alerts; deny-by-default on log services.
+- **T1021 Remote Services:** unexpected management channel use; network flow anomalies.
+
+## Mitigation Strategy
+- **Identity:** scoped roles, conditional access, session duration limits.
+- **Data:** encryption everywhere; least-privilege access paths; tokenized interfaces where possible.
+- **Network:** private endpoints; segmentation; zero-trust service communications.
+- **Ops:** patch pipelines, SBOM checks, auto-remediation for high-confidence issues.
+
+> Full control references are in `governance/compliance_mapping.md`.
