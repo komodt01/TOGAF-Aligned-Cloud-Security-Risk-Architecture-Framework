@@ -1,119 +1,291 @@
-# TOGAF-Aligned-Cloud-Security-Risk-Architecture-Framework
-> **Security architecture is most effective when it directly supports business outcomes.**
-> This framework aligns cloud security capabilities with organizational risk tolerance,
-> regulatory requirements, and operational realities — structured using TOGAF’s
-> lifecycle and architecture domains to ensure consistency, justification, and governance
-> of security decisions across AWS, Azure, and GCP.
+# TOGAF-Aligned Cloud Security Risk Architecture Framework
+
+## Overview
+
+Cloud security architecture should begin with business risk and security requirements, not with cloud services.
+
+This project demonstrates a structured approach for translating business objectives, regulatory obligations, threat scenarios, and risk tolerance into cloud security architecture decisions. TOGAF concepts provide the architecture lifecycle and governance structure, while security frameworks and threat models provide inputs for determining which controls are appropriate and why.
+
+The objective is to connect:
+
+**Business Requirements → Risk → Threats → Security Controls → Architecture Decisions → Governance and Assurance**
+
+This repository is an architecture and governance project. It does not represent a deployed production environment or claim formal TOGAF, SABSA, NIST, ISO, or CIS certification.
 
 ---
 
-## Architecture Intent
+## Architecture Problem
 
-Security controls are most effective when they are:
+Cloud environments often accumulate security controls independently:
 
-- **Traceable** to business requirements,
-- **Justifiable** in terms of mitigating material risk,
-- **Measurable** in how they affect operational outcomes, and
-- **Adaptable** as threats and business needs change.
+- IAM policies are created to solve individual access requirements.
+- Network controls are introduced without a documented threat model.
+- Logging is enabled without defining what security decisions the telemetry must support.
+- Vulnerabilities are prioritized primarily by severity.
+- Compliance controls are implemented without connecting them to specific business risks.
+- Architecture decisions are made without documenting ownership, exceptions, or residual risk.
 
-This framework connects:
+The result can be technically sophisticated security without a clear relationship between business requirements, risk, and architectural decisions.
 
-- **Business risk and regulatory obligations**
-- **Security control baselines** (NIST CSF, ISO 27001, CIS Controls)
-- **Adversary behaviors** (MITRE ATT&CK, CAPEC)
-- **Vulnerability severity and prioritization** (CVSS v3.1)
-- **Continuous governance and architecture evolution** (TOGAF Phase H)
-
-The outcome is a **threat-informed, risk-aligned, governance-backed cloud security architecture**.
+This framework addresses that problem by creating traceability between those layers.
 
 ---
 
-## TOGAF Architecture Domains (Applied in This Project)
+## Architecture Principle
 
-| Domain | Focus | Representation in This Repository |
-|-------|-------|-----------------------------------|
-| **Business Architecture** | Business drivers, risk appetite, compliance posture | `governance/project_summary.md` |
-| **Application Architecture** | Services, identity boundaries, API trust relationships | `governance/project_summary.md` |
-| **Data Architecture** | Event visibility, log flows, data movement & classification | `architecture/integration_overview.md` |
-| **Technology Architecture** | IAM, encryption, scanning, monitoring, network segmentation | `infrastructure/technologies.md` |
+> A security control should exist because it addresses an identified business, security, regulatory, or threat requirement—not simply because a cloud platform provides the capability.
 
-TOGAF provides the **structure and lifecycle** for how architecture evolves and is governed.
+The framework therefore treats cloud services as implementation mechanisms rather than the starting point for architecture.
 
 ---
 
-## Risk-Based Security Model
+## Architecture Decision Flow
 
-This framework integrates multiple security standards and threat models:
+The framework uses the following decision sequence:
 
-| Framework | Role in the Architecture |
-|----------|--------------------------|
-| **NIST CSF** | Defines security function alignment (Identify → Protect → Detect → Respond → Recover) |
-| **ISO 27001** | Provides governance & control objective anchors |
-| **CIS Controls** | Defines enforceable security safeguards and technical expectations |
-| **MITRE ATT&CK / CAPEC** | Ensures controls address real-world adversary behaviors |
-| **CVSS v3.1** | Quantifies vulnerability severity for prioritized remediation |
+1. **Identify the business objective**
+   - What capability must the organization protect or enable?
 
-The result is **risk-based prioritization**, not equal-effort security.
+2. **Determine security and regulatory requirements**
+   - What confidentiality, integrity, availability, privacy, or regulatory obligations apply?
 
----
+3. **Identify threats and failure scenarios**
+   - How could the requirement fail?
+   - Which adversary behaviors or architectural weaknesses are relevant?
 
-## Design Motivation and Rationale
+4. **Evaluate risk**
+   - What is the likelihood and business impact?
+   - Which risks require mitigation, transfer, acceptance, or avoidance?
 
-The purpose of this project is to **demonstrate architectural reasoning** rather than simply tool configuration.
+5. **Select security controls**
+   - Which preventive, detective, and corrective controls reduce the identified risk?
 
-Using TOGAF provides:
+6. **Translate controls into architecture**
+   - Where should the control be enforced?
+   - Which identity, network, workload, data, and monitoring boundaries are affected?
 
-- A **repeatable structure** to document cloud security architecture,
-- A **lifecycle perspective** rather than point-in-time design,
-- A way to **trace architecture decisions to business and risk drivers**, and
-- A framework for **continuous adjustment** based on threat and operational feedback.
+7. **Validate and monitor**
+   - What evidence demonstrates that the control remains effective?
 
-This project reflects the role of the **security architect** as a bridge between:
-**business → risk → architectural decisions → platform enforcement.**
-
----
-
-## Future Direction: Extending With SABSA (Correctly Explained)
-
-**SABSA (Sherwood Applied Business Security Architecture)** is a **business-driven security architecture framework** that begins with identifying **Business Attributes** such as confidentiality requirements, trust models, reliability needs, regulatory conditions, and risk tolerance.
-
-SABSA structures security architecture across **six layers**, each answering a different “architecture question”:
-
-| SABSA Layer | Focus | Outcome |
-|-------------|-------|---------|
-| **Contextual** | Business purpose, stakeholders, mission | Why security is needed |
-| **Conceptual** | Security concepts and trust expectations | What security needs to achieve |
-| **Logical** | Security services and relational structures | How security functions should interact |
-| **Physical** | Technology platform designs | Which architectural patterns support the model |
-| **Component** | Product/tool selection and configuration | Which tools and settings realize the model |
-| **Operational** | Monitoring and ongoing assurance | How security outcomes are validated over time |
-
-### Why SABSA Is the Next Iteration
-- TOGAF organizes **how architecture evolves**
-- **SABSA defines why specific security controls must exist**
-- Combining the two yields **traceable, governed, business-aligned security architecture**
-
-This project intentionally establishes the **TOGAF structural foundation** so that a **SABSA attribute-driven security model** can be layered on next.
+8. **Govern exceptions and residual risk**
+   - What happens when the standard cannot be met?
+   - Who owns the remaining risk?
+   - When should the decision be reviewed?
 
 ---
 
-## Repository Deliverables
+## TOGAF Alignment
 
-| File | Description |
-|------|-------------|
-| `architecture/integration_overview.md` | How TOGAF, NIST, MITRE, and CVSS interconnect |
-| `architecture/conceptual_togaf_risk_domain_diagram.png` | Strategic architecture layer model |
-| `architecture/operational_security_control_flow.png` | Control enforcement, telemetry, & governance flow |
-| `governance/project_summary.md` | TOGAF ADM phase alignment and business context |
-| `governance/compliance_mapping.md` | NIST / ISO / CIS control traceability |
-| `risk_analysis/threat_model.md` | MITRE ATT&CK + CAPEC adversary mapping |
-| `risk_analysis/vulnerability_analysis.md` | CVSS-based prioritization and remediation outcomes |
-| `infrastructure/technologies.md` | Cloud platform control responsibilities & implementation notes |
+TOGAF provides a structure for connecting business requirements with architecture decisions and managing those decisions throughout an architecture lifecycle.
+
+This project applies that thinking across four architecture perspectives.
+
+| Architecture Perspective | Security Focus |
+|---|---|
+| **Business Architecture** | Business objectives, stakeholders, regulatory obligations, risk tolerance |
+| **Application Architecture** | Application trust relationships, APIs, identity dependencies, service interactions |
+| **Data Architecture** | Data classification, protection requirements, telemetry, auditability, data flows |
+| **Technology Architecture** | IAM, encryption, network controls, workload protection, monitoring and cloud security services |
+
+The purpose is not to reproduce the complete TOGAF Architecture Development Method. TOGAF concepts are used here to provide structure, traceability, governance, and lifecycle thinking for security architecture.
 
 ---
 
-## Certification Note (Important)
+## Risk and Threat Model
 
-> This project uses TOGAF and SABSA **concepts for architectural reasoning only**.  
-> No certification, endorsement, or formal affiliation is claimed or implied.
+Security decisions should consider both business risk and realistic threat scenarios.
 
+This project incorporates several complementary sources of security information:
+
+| Source | Architecture Purpose |
+|---|---|
+| **NIST CSF** | Organizes security outcomes across Identify, Protect, Detect, Respond, and Recover |
+| **ISO/IEC 27001** | Provides governance and information-security control context |
+| **CIS Controls** | Provides practical security safeguards |
+| **MITRE ATT&CK** | Connects architecture decisions to adversary techniques |
+| **CAPEC** | Provides attack-pattern context |
+| **CVSS** | Provides one input for vulnerability severity and prioritization |
+
+These frameworks are treated as **decision inputs**, not interchangeable compliance checklists.
+
+A vulnerability or threat should not automatically determine an architecture decision solely because it has a particular framework classification or severity score. Business impact, asset criticality, exposure, existing controls, and compensating controls must also be considered.
+
+---
+
+## Security Control Model
+
+Controls can be evaluated according to how they reduce risk.
+
+### Preventive Controls
+
+Designed to stop an unwanted event before it occurs.
+
+Examples include:
+
+- least-privilege authorization,
+- network segmentation,
+- encryption requirements,
+- workload configuration guardrails,
+- secrets-management requirements.
+
+### Detective Controls
+
+Designed to identify security events, policy violations, or control failures.
+
+Examples include:
+
+- audit logging,
+- configuration monitoring,
+- identity anomaly detection,
+- vulnerability scanning,
+- security alerting.
+
+### Corrective Controls
+
+Designed to contain, remediate, or recover from a security event or control failure.
+
+Examples include:
+
+- automated remediation,
+- credential revocation,
+- workload isolation,
+- configuration rollback,
+- incident-response procedures.
+
+A mature architecture should also define what happens when a control itself fails.
+
+---
+
+## Governance and Architecture Review
+
+Architecture decisions require governance beyond initial design approval.
+
+A security architecture review should be able to answer:
+
+- What business or security requirement is being addressed?
+- What threat or failure scenario creates the risk?
+- Where is the security boundary?
+- Which control mitigates the risk?
+- Why was that control selected?
+- What telemetry demonstrates that the control is functioning?
+- What happens if the control fails?
+- Are compensating controls available?
+- Who can approve an exception?
+- Who owns the residual risk?
+- When should the decision be reviewed again?
+
+This turns architecture review from a technology approval exercise into a risk decision.
+
+---
+
+## Exception and Residual-Risk Management
+
+Not every architecture can immediately meet every security requirement.
+
+When an exception is required, the decision should document:
+
+- the unmet requirement,
+- the reason the standard cannot currently be met,
+- affected systems or data,
+- compensating controls,
+- business and security impact,
+- accountable risk owner,
+- security review,
+- expiration or review date,
+- remediation plan.
+
+Acceptance of an exception does not eliminate risk. It establishes accountability for the remaining risk.
+
+---
+
+## Architecture Lifecycle
+
+Security architecture changes as systems, threats, regulations, and business requirements evolve.
+
+The lifecycle represented by this framework is:
+
+**Business Change → Risk Assessment → Architecture Decision → Control Implementation → Validation → Monitoring → Review**
+
+Triggers for reassessment may include:
+
+- significant architecture changes,
+- new regulatory requirements,
+- material vulnerabilities,
+- changes in data classification,
+- new threat intelligence,
+- control failures,
+- mergers or acquisitions,
+- adoption of new cloud platforms or services.
+
+This lifecycle perspective is one of the primary reasons TOGAF concepts are useful for security architecture.
+
+---
+
+## SABSA Relationship
+
+SABSA can complement this approach by providing a more explicitly business-driven security architecture model.
+
+At a high level:
+
+- **TOGAF** helps structure enterprise architecture development and governance.
+- **SABSA** provides a security architecture methodology that traces security requirements back to business attributes.
+
+A future iteration of this project could use SABSA business attributes to strengthen traceability between business requirements, security services, control selection, and measurable security outcomes.
+
+This repository currently uses SABSA concepts only as architectural context and does not claim a complete SABSA implementation.
+
+---
+
+## Repository Structure
+
+```text
+Architecture/
+    Integration_Overview
+    Togaf_Explained
+    conceptual_togaf_risk_domain_diagram.png
+    operational_security_control_flow.png
+
+Governance/
+    Compliance_Mapping
+    Project_Summary
+
+Infastructure/
+    Technologies
+
+Risk_Analysis/
+    Threat_Model
+    Vulnerability_Analysis
+
+README.md
+```
+
+The existing repository uses the directory name `Infastructure`. Renaming it to `Infrastructure` is recommended as part of repository cleanup.
+
+---
+
+## Architecture Artifacts
+
+The repository contains supporting material covering:
+
+- TOGAF and security-risk integration,
+- business and governance context,
+- security-framework mapping,
+- threat modeling,
+- vulnerability prioritization,
+- cloud security technology responsibilities,
+- conceptual architecture relationships,
+- operational security-control flow.
+
+These artifacts are intended to demonstrate architecture reasoning rather than represent evidence of a deployed production system.
+
+---
+
+## Key Architecture Takeaway
+
+Cloud security architecture is not primarily the selection of security products or cloud services.
+
+The architecture task is to determine:
+
+**what must be protected, why it matters, what could cause it to fail, which controls reduce that risk, where those controls should be enforced, how their effectiveness will be measured, and who owns the remaining risk.**
+
+TOGAF provides one structure for making those decisions traceable and governable across the architecture lifecycle.
