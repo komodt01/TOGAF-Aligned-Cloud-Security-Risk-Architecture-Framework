@@ -1,47 +1,270 @@
-# Project Summary – TOGAF-Aligned Cloud Security Risk & Architecture Framework
+# Project Summary — TOGAF-Aligned Cloud Security Risk Architecture Framework
 
-## Phase A – Architecture Vision
-**Objective:** Align cloud security with business risk tolerance and regulatory requirements using a repeatable architecture lifecycle.  
-**Scope:** Multi-cloud (AWS, Azure, GCP); focus on identity boundaries, observability, vulnerability management, and governance.  
-**Outcomes:** Risk-based prioritization, measurable assurance, continuous improvement.
+## Business Context
 
-## Phase B – Business Architecture
-- **Drivers:** Regulatory obligations, availability/continuity goals, customer trust.
-- **Risk Appetite:** Prioritize reduction of material risk; define SLAs for remediation.
-- **Governance:** Assign accountability (security, platform, product) and escalation paths.
+Organizations increasingly operate across multiple cloud platforms, applications, data environments, and identity systems.
 
-## Phase C – Information Systems Architecture
-- **Identity Boundaries:** Define principals, roles, trust policies; minimize blast radius.
-- **Service Interactions:** Catalog APIs, data producers/consumers, and call paths.
-- **Observability Design:** Standardize logging, metrics, traces; centralize analysis.
+Security requirements can become fragmented when individual teams select controls independently. This can create inconsistent protection, duplicated capabilities, unclear ownership, and difficulty explaining why a particular security control exists.
 
-## Phase D – Technology Architecture
-- **IAM & Secrets:** Least privilege, scoped trust, rotation, brokered access.
-- **Network & Encryption:** Segmentation, private endpoints, TLS in transit, KMS at rest.
-- **Monitoring & Detection:** CloudWatch/Log Analytics + SIEM, rules mapped to ATT&CK.
-- **Vulnerability Management:** Inspector/Trivy/OpenVAS → CVSS scoring → ticketing.
+This project demonstrates an architecture approach that begins with business requirements and risk, then traces those requirements through security decisions, control expectations, governance, and ongoing assurance.
 
-## Phase E – Opportunities & Solutions
-- Policy-as-code for conformity checks and drift detection.
-- Auto-remediation for high-confidence misconfigurations.
-- SBOM and dependency checks integrated into pipelines.
-- Cost/security telemetry surfaced as KPIs for leadership.
+## Architecture Objective
 
-## Phase F – Migration Planning
-1. Baseline identity, logging, and scanning enablement  
-2. Control mapping to NIST/ISO/CIS and ATT&CK  
-3. CVSS thresholds, SLAs, and runbooks  
-4. Policy-as-code rollout and CI checks  
-5. KPI reporting and governance cadence
+The objective is to establish a repeatable security architecture decision model that can be applied across cloud environments without requiring every cloud platform to implement the requirement in exactly the same way.
 
-## Phase G – Implementation Governance
-- **Controls:** Measured against NIST/ISO/CIS requirements.  
-- **Enforcement:** AWS Config/Azure Policy; exceptions tracked.  
-- **Assurance:** Evidence retained; reviews tied to risk registers.
+The principle is:
 
-## Phase H – Architecture Change Management
-- Feed incident findings, audits, and intel into backlog.
-- Periodic review of ATT&CK coverage and detection gaps.
-- Revisit risk appetite and SLAs as business context changes.
+**Standardize the security requirement and expected outcome while allowing implementation patterns to vary where appropriate.**
 
-> **Note:** TOGAF is used for structure; no certification is implied.
+This allows architecture governance to remain consistent while recognizing differences among cloud platforms, applications, regulatory requirements, and operating models.
+
+## Architecture Scope
+
+The framework considers security decisions across:
+
+- identity and access,
+- applications and APIs,
+- data protection,
+- network boundaries,
+- workloads,
+- secrets and cryptographic controls,
+- vulnerability management,
+- logging and detection,
+- incident response,
+- governance and exceptions.
+
+The project is architecture-focused. It does not represent a deployed multi-cloud environment.
+
+## Architecture Decision Model
+
+Security decisions follow a traceable path:
+
+**Business Driver → Security Requirement → Threat / Failure Scenario → Risk → Architecture Decision → Control → Validation → Residual Risk**
+
+Each stage answers a different question.
+
+### Business Driver
+
+Why does the organization need the capability?
+
+Examples include regulatory obligations, customer trust, operational resilience, protection of sensitive information, or support for a new business service.
+
+### Security Requirement
+
+What security outcome must be achieved?
+
+The requirement should describe the desired outcome before selecting a technology.
+
+### Threat or Failure Scenario
+
+How could the requirement fail?
+
+The architecture should consider malicious activity, configuration errors, control failures, excessive privilege, missing telemetry, and operational failures.
+
+### Risk
+
+What would the failure mean to the organization?
+
+Risk evaluation should consider likelihood, business impact, asset criticality, exposure, and existing controls.
+
+### Architecture Decision
+
+What security approach will address the risk?
+
+The decision should identify the relevant trust boundaries, enforcement points, dependencies, and tradeoffs.
+
+### Control
+
+Which preventive, detective, and corrective controls support the decision?
+
+Controls may be implemented differently across platforms while satisfying the same security requirement.
+
+### Validation
+
+What evidence demonstrates that the control is operating as intended?
+
+Examples may include configuration state, logs, alerts, test results, policy evaluation, or other assurance evidence.
+
+### Residual Risk
+
+What risk remains after the controls are applied?
+
+Residual risk should be visible and assigned to an accountable owner when it cannot be eliminated.
+
+## TOGAF Lifecycle Alignment
+
+TOGAF concepts provide structure for moving these decisions through an architecture lifecycle.
+
+### Phase A — Architecture Vision
+
+Establish:
+
+- business drivers,
+- scope,
+- stakeholders,
+- security objectives,
+- major risks,
+- expected outcomes.
+
+The purpose is to understand why architecture work is required before determining the solution.
+
+### Phase B — Business Architecture
+
+Identify:
+
+- critical business capabilities,
+- regulatory obligations,
+- risk tolerance,
+- ownership,
+- operational dependencies,
+- business impact.
+
+Security requirements should be traceable to this context.
+
+### Phase C — Information Systems Architectures
+
+Evaluate application and data relationships, including:
+
+- identities,
+- APIs,
+- service interactions,
+- data flows,
+- sensitive information,
+- trust relationships,
+- external dependencies.
+
+These relationships help identify where security boundaries exist.
+
+### Phase D — Technology Architecture
+
+Determine the technical capabilities required to enforce the approved security outcomes.
+
+Areas may include:
+
+- identity controls,
+- network segmentation,
+- encryption,
+- secrets management,
+- workload protection,
+- logging,
+- monitoring,
+- vulnerability management.
+
+Technology is selected after the security requirement and architecture decision are understood.
+
+### Phase E — Opportunities and Solutions
+
+Evaluate possible implementation approaches.
+
+Architecture tradeoffs may involve:
+
+- native cloud controls versus centralized capabilities,
+- preventive versus detective enforcement,
+- automation versus manual approval,
+- security strength versus operational complexity,
+- centralized standards versus platform-specific implementation.
+
+The selected approach should document why the tradeoff is acceptable.
+
+### Phase F — Migration Planning
+
+Security improvements should be prioritized according to risk and dependency rather than implemented as an unstructured collection of controls.
+
+A typical sequence could include:
+
+1. establish visibility and asset understanding,
+2. protect critical identities and data,
+3. implement minimum security guardrails,
+4. improve detection and response,
+5. address identified control gaps,
+6. mature automation and continuous assurance.
+
+The exact sequence depends on organizational risk and architecture dependencies.
+
+### Phase G — Implementation Governance
+
+Architecture governance verifies that implementation remains consistent with approved decisions.
+
+Review should determine:
+
+- whether required controls were implemented,
+- whether trust boundaries changed,
+- whether compensating controls were introduced,
+- whether exceptions exist,
+- whether required telemetry is available,
+- whether implementation created new risk.
+
+A technically successful deployment is not necessarily architecturally compliant.
+
+### Phase H — Architecture Change Management
+
+Architecture must be reassessed as conditions change.
+
+Review may be triggered by:
+
+- significant system changes,
+- new threats,
+- security incidents,
+- control failures,
+- regulatory changes,
+- mergers or acquisitions,
+- new cloud platforms,
+- material vulnerabilities,
+- changes in business risk tolerance.
+
+The result may be a new architecture decision, additional controls, an accepted exception, or retirement of an existing control.
+
+## Governance Model
+
+Security architecture governance should establish clear accountability.
+
+Typical responsibilities include:
+
+**Security Architecture**
+- define security requirements and architecture patterns,
+- evaluate security implications,
+- document architecture decisions and tradeoffs,
+- identify residual risk.
+
+**Platform and Engineering Teams**
+- implement approved controls,
+- produce required telemetry,
+- identify implementation constraints,
+- remediate control failures.
+
+**Risk and Compliance**
+- interpret applicable obligations,
+- maintain risk and control traceability,
+- support exception and risk-acceptance processes.
+
+**Business or System Owners**
+- understand business impact,
+- approve appropriate business tradeoffs,
+- own residual risk where organizational policy requires it.
+
+## Exception Management
+
+When an architecture cannot meet a required security standard, the exception should be explicit.
+
+An exception should identify:
+
+- the requirement that cannot be met,
+- the affected architecture,
+- the reason,
+- the associated risk,
+- compensating controls,
+- accountable owner,
+- remediation plan,
+- review or expiration date.
+
+An exception is therefore a governed risk decision rather than an undocumented deviation.
+
+## Architecture Outcome
+
+The intended outcome of this framework is not identical technology across AWS, Azure, GCP, or other environments.
+
+The intended outcome is consistent security reasoning:
+
+**the same type of risk should result in a comparable security requirement, an explainable architecture decision, appropriate controls, measurable evidence, and accountable residual risk.**
+
+That consistency is what allows security architecture to scale across technologies while remaining aligned with business objectives.
