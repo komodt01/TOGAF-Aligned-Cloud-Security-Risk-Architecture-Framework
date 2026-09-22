@@ -1,270 +1,197 @@
-# Project Summary — TOGAF-Aligned Cloud Security Risk Architecture Framework
+# Security Framework Mapping
 
-## Business Context
+## Purpose
 
-Organizations increasingly operate across multiple cloud platforms, applications, data environments, and identity systems.
+Security frameworks and standards provide useful inputs to architecture, but compliance mapping should not be confused with proof that a control is implemented or operating effectively.
 
-Security requirements can become fragmented when individual teams select controls independently. This can create inconsistent protection, duplicated capabilities, unclear ownership, and difficulty explaining why a particular security control exists.
+This document demonstrates how security requirements can be traced across several commonly used frameworks and then translated into architecture considerations.
 
-This project demonstrates an architecture approach that begins with business requirements and risk, then traces those requirements through security decisions, control expectations, governance, and ongoing assurance.
+The relationship is:
 
-## Architecture Objective
+**Framework Requirement → Security Outcome → Architecture Requirement → Control → Evidence**
 
-The objective is to establish a repeatable security architecture decision model that can be applied across cloud environments without requiring every cloud platform to implement the requirement in exactly the same way.
+Actual compliance would require validation of the applicable framework version, organizational scope, control implementation, operating effectiveness, and supporting evidence.
 
-The principle is:
+---
 
-**Standardize the security requirement and expected outcome while allowing implementation patterns to vary where appropriate.**
+## Mapping Principles
 
-This allows architecture governance to remain consistent while recognizing differences among cloud platforms, applications, regulatory requirements, and operating models.
+This project uses several principles when translating framework requirements into architecture.
 
-## Architecture Scope
+### Requirements Before Technology
 
-The framework considers security decisions across:
+A framework identifies an expected security outcome or control objective.
 
-- identity and access,
-- applications and APIs,
-- data protection,
-- network boundaries,
-- workloads,
-- secrets and cryptographic controls,
-- vulnerability management,
-- logging and detection,
-- incident response,
-- governance and exceptions.
+Architecture determines how that requirement should be satisfied within the system context.
 
-The project is architecture-focused. It does not represent a deployed multi-cloud environment.
+Technology is selected afterward.
 
-## Architecture Decision Model
+### Comparable Outcomes, Different Implementations
 
-Security decisions follow a traceable path:
+A requirement such as least privilege may be implemented differently across cloud providers and applications.
 
-**Business Driver → Security Requirement → Threat / Failure Scenario → Risk → Architecture Decision → Control → Validation → Residual Risk**
+The architecture standard should therefore focus on the required security outcome rather than requiring identical technology everywhere.
 
-Each stage answers a different question.
+### Evidence Is Part of the Architecture
 
-### Business Driver
+A control is incomplete if the organization cannot determine whether it is operating as intended.
 
-Why does the organization need the capability?
+Architecture should identify the evidence required to validate important security controls.
 
-Examples include regulatory obligations, customer trust, operational resilience, protection of sensitive information, or support for a new business service.
+### Mapping Does Not Equal Compliance
 
-### Security Requirement
+A relationship between an architecture control and a security framework does not demonstrate certification or compliance.
 
-What security outcome must be achieved?
+Formal compliance requires additional scoping, implementation, testing, evidence, governance, and independent assessment where applicable.
 
-The requirement should describe the desired outcome before selecting a technology.
+---
 
-### Threat or Failure Scenario
+## NIST Cybersecurity Framework
 
-How could the requirement fail?
+The NIST Cybersecurity Framework can be used to organize security outcomes across:
 
-The architecture should consider malicious activity, configuration errors, control failures, excessive privilege, missing telemetry, and operational failures.
+**Govern → Identify → Protect → Detect → Respond → Recover**
 
-### Risk
+| CSF Function | Architecture Question | Example Security Outcome |
+|---|---|---|
+| **Govern** | Who owns security requirements, risk, policy, and exceptions? | Security decisions have accountable ownership and governance |
+| **Identify** | What assets, identities, data, dependencies, and risks exist? | Critical resources and risks are understood |
+| **Protect** | Which controls reduce the likelihood or impact of compromise? | Access, data, workloads, and infrastructure are appropriately protected |
+| **Detect** | How will control failures and suspicious activity be identified? | Required security events produce actionable telemetry |
+| **Respond** | What happens when a security event occurs? | Response responsibilities and containment actions are defined |
+| **Recover** | How will capabilities be restored and lessons incorporated? | Recovery requirements exist and findings feed architecture improvement |
 
-What would the failure mean to the organization?
+This framework helps prevent architecture from focusing exclusively on preventive controls.
 
-Risk evaluation should consider likelihood, business impact, asset criticality, exposure, and existing controls.
+---
 
-### Architecture Decision
+## ISO/IEC 27001
 
-What security approach will address the risk?
+ISO/IEC 27001 provides an information security management framework that connects organizational governance, risk management, policies, controls, and continual improvement.
 
-The decision should identify the relevant trust boundaries, enforcement points, dependencies, and tradeoffs.
+For architecture purposes, relevant considerations may include:
 
-### Control
+| Security Area | Architecture Consideration |
+|---|---|
+| Organizational governance | Security ownership, policy, responsibilities, risk decisions |
+| Asset management | Resource ownership, classification, inventory, lifecycle |
+| Identity and access | Authentication, authorization, privilege management, access review |
+| Data protection | Classification, encryption, retention, handling requirements |
+| Operations security | Configuration, vulnerability management, monitoring, change control |
+| Secure development | Security requirements, architecture review, testing, dependency risk |
+| Incident management | Detection, escalation, response, lessons learned |
+| Supplier relationships | External dependencies, third-party access, inherited controls |
+| Compliance | Regulatory obligations, evidence, control traceability |
 
-Which preventive, detective, and corrective controls support the decision?
+Specific ISO/IEC 27001 and ISO/IEC 27002 control identifiers should be validated against the version and scope being used by an organization before being included in formal compliance documentation.
 
-Controls may be implemented differently across platforms while satisfying the same security requirement.
+---
 
-### Validation
+## CIS Controls
 
-What evidence demonstrates that the control is operating as intended?
+CIS Controls provide practical safeguards that can help translate security requirements into technical expectations.
 
-Examples may include configuration state, logs, alerts, test results, policy evaluation, or other assurance evidence.
+| Security Area | Architecture Consideration |
+|---|---|
+| Asset inventory | Systems and cloud resources should have identifiable ownership and lifecycle |
+| Software inventory | Authorized software and dependencies should be understood |
+| Data protection | Sensitive information should receive protection appropriate to classification |
+| Secure configuration | Approved configuration baselines and drift management should exist |
+| Account management | Accounts should be governed throughout their lifecycle |
+| Access control | Access should follow least privilege and appropriate authentication requirements |
+| Vulnerability management | Vulnerabilities should be identified and prioritized according to organizational risk |
+| Audit logging | Security-relevant activity should generate appropriate telemetry |
+| Network monitoring | Network activity should be observable where required by risk |
+| Incident response | Response responsibilities and processes should be established |
 
-### Residual Risk
+CIS safeguards can inform technical implementation while architecture determines where and how those safeguards apply.
 
-What risk remains after the controls are applied?
+---
 
-Residual risk should be visible and assigned to an accountable owner when it cannot be eliminated.
+## Cross-Framework Example
 
-## TOGAF Lifecycle Alignment
+Consider a requirement to protect privileged administrative access.
 
-TOGAF concepts provide structure for moving these decisions through an architecture lifecycle.
+Different frameworks may express related expectations differently, but architecture can translate them into a common security outcome.
 
-### Phase A — Architecture Vision
+**Business Concern**
 
-Establish:
+Compromise of privileged access could result in unauthorized changes, data exposure, or service disruption.
 
-- business drivers,
-- scope,
-- stakeholders,
-- security objectives,
-- major risks,
-- expected outcomes.
+**Security Outcome**
 
-The purpose is to understand why architecture work is required before determining the solution.
+Privileged access must be strongly authenticated, limited to authorized administrators, appropriately scoped, monitored, and reviewable.
 
-### Phase B — Business Architecture
+**Architecture Requirements**
 
-Identify:
+The architecture may require:
 
-- critical business capabilities,
-- regulatory obligations,
-- risk tolerance,
-- ownership,
-- operational dependencies,
-- business impact.
+- strong authentication,
+- least privilege,
+- separation of administrative roles,
+- temporary or time-bound privilege where appropriate,
+- controlled administrative paths,
+- audit logging,
+- access review,
+- detection of suspicious privileged activity.
 
-Security requirements should be traceable to this context.
+**Possible Evidence**
 
-### Phase C — Information Systems Architectures
+Evidence could include:
 
-Evaluate application and data relationships, including:
+- identity configuration,
+- authorization policy,
+- access-review records,
+- authentication logs,
+- privilege-use telemetry,
+- alerts,
+- exception records.
 
-- identities,
-- APIs,
-- service interactions,
-- data flows,
-- sensitive information,
-- trust relationships,
-- external dependencies.
+The technology used to implement these requirements may differ among platforms, but the expected security outcome remains consistent.
 
-These relationships help identify where security boundaries exist.
+---
 
-### Phase D — Technology Architecture
+## Control Traceability
 
-Determine the technical capabilities required to enforce the approved security outcomes.
+A useful architecture traceability model is:
 
-Areas may include:
+| Layer | Question |
+|---|---|
+| **Business Requirement** | Why does this matter? |
+| **Risk** | What could happen if the requirement is not met? |
+| **Security Requirement** | What outcome must be achieved? |
+| **Architecture Decision** | How will the architecture address the requirement? |
+| **Control** | What prevents, detects, or corrects the failure? |
+| **Evidence** | How do we know the control is operating? |
+| **Residual Risk** | What risk remains? |
+| **Ownership** | Who is accountable for that remaining risk? |
 
-- identity controls,
-- network segmentation,
-- encryption,
-- secrets management,
-- workload protection,
-- logging,
-- monitoring,
-- vulnerability management.
+This provides more useful architecture governance than simply listing framework control identifiers.
 
-Technology is selected after the security requirement and architecture decision are understood.
+---
 
-### Phase E — Opportunities and Solutions
+## Exceptions
 
-Evaluate possible implementation approaches.
+If an architecture cannot meet a required security outcome, the gap should not disappear simply because another control exists.
 
-Architecture tradeoffs may involve:
+The exception process should identify:
 
-- native cloud controls versus centralized capabilities,
-- preventive versus detective enforcement,
-- automation versus manual approval,
-- security strength versus operational complexity,
-- centralized standards versus platform-specific implementation.
-
-The selected approach should document why the tradeoff is acceptable.
-
-### Phase F — Migration Planning
-
-Security improvements should be prioritized according to risk and dependency rather than implemented as an unstructured collection of controls.
-
-A typical sequence could include:
-
-1. establish visibility and asset understanding,
-2. protect critical identities and data,
-3. implement minimum security guardrails,
-4. improve detection and response,
-5. address identified control gaps,
-6. mature automation and continuous assurance.
-
-The exact sequence depends on organizational risk and architecture dependencies.
-
-### Phase G — Implementation Governance
-
-Architecture governance verifies that implementation remains consistent with approved decisions.
-
-Review should determine:
-
-- whether required controls were implemented,
-- whether trust boundaries changed,
-- whether compensating controls were introduced,
-- whether exceptions exist,
-- whether required telemetry is available,
-- whether implementation created new risk.
-
-A technically successful deployment is not necessarily architecturally compliant.
-
-### Phase H — Architecture Change Management
-
-Architecture must be reassessed as conditions change.
-
-Review may be triggered by:
-
-- significant system changes,
-- new threats,
-- security incidents,
-- control failures,
-- regulatory changes,
-- mergers or acquisitions,
-- new cloud platforms,
-- material vulnerabilities,
-- changes in business risk tolerance.
-
-The result may be a new architecture decision, additional controls, an accepted exception, or retirement of an existing control.
-
-## Governance Model
-
-Security architecture governance should establish clear accountability.
-
-Typical responsibilities include:
-
-**Security Architecture**
-- define security requirements and architecture patterns,
-- evaluate security implications,
-- document architecture decisions and tradeoffs,
-- identify residual risk.
-
-**Platform and Engineering Teams**
-- implement approved controls,
-- produce required telemetry,
-- identify implementation constraints,
-- remediate control failures.
-
-**Risk and Compliance**
-- interpret applicable obligations,
-- maintain risk and control traceability,
-- support exception and risk-acceptance processes.
-
-**Business or System Owners**
-- understand business impact,
-- approve appropriate business tradeoffs,
-- own residual risk where organizational policy requires it.
-
-## Exception Management
-
-When an architecture cannot meet a required security standard, the exception should be explicit.
-
-An exception should identify:
-
-- the requirement that cannot be met,
-- the affected architecture,
-- the reason,
-- the associated risk,
+- the unmet requirement,
+- affected architecture,
+- associated risk,
 - compensating controls,
 - accountable owner,
 - remediation plan,
-- review or expiration date.
+- expiration or review date.
 
-An exception is therefore a governed risk decision rather than an undocumented deviation.
+Framework mapping can then show both the intended control and the approved exception.
 
-## Architecture Outcome
+---
 
-The intended outcome of this framework is not identical technology across AWS, Azure, GCP, or other environments.
+## Key Takeaway
 
-The intended outcome is consistent security reasoning:
+Security frameworks help define expected outcomes and safeguards.
 
-**the same type of risk should result in a comparable security requirement, an explainable architecture decision, appropriate controls, measurable evidence, and accountable residual risk.**
+Architecture determines how those expectations apply to a particular system, where controls should be enforced, how their effectiveness will be demonstrated, and who owns the remaining risk.
 
-That consistency is what allows security architecture to scale across technologies while remaining aligned with business objectives.
+**Mapping establishes traceability. Evidence and assurance establish whether the control actually works.**
